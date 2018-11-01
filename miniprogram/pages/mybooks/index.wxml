@@ -1,0 +1,16 @@
+<!--index.wxml-->
+<view class="container">
+
+  <view class="userinfo">
+		<image wx:if="{{userInfo && userInfo.avatarUrl}}" class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image>
+		<text class="userinfo-nickname">{{ userInfo.nickName }}</text>
+	</view>
+
+  <!-- 扫码录入 -->
+  <view class="uploader" wx:if="{{openid && openid == 'oR0NK5DCuXqKrSBRIm-8gu_VpeYs'}}">
+    <view class="uploader-text" bindtap="doScanCode">
+      <text>扫码录入</text>
+    </view>
+  </view>
+
+</view>

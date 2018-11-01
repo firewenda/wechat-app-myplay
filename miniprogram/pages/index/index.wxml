@@ -1,0 +1,33 @@
+<!--index.wxml-->
+<view class="container">
+
+  <view class="search-view" style="background:{{ scrollTop === 0 ?'-webkit-linear-gradient(top, rgba(105,195,170, 1), rgba(105,195,170, 0.3))' :( scrollTop<200 ? 'rgba(105,195,170,'+(scrollTop/400+0.3) +')' : 'rgba(105,195,170,1)')  }} ">
+    <view class="search-content">
+      <image src="/images/search-pic.png" class="search-icon" />
+      <input placeholder="请输入查询内容" class="search-input" maxlength="30" confirm-type="查询" bindinput='listenerSearchInput' bindconfirm='toSearch'>
+      </input>
+      <button class='search-btn' bindtap="toSearch">查询
+      </button>
+    </view>
+  </view>
+
+  <view class="goods-container">
+    <view class="goods-box" wx:for-items="{{goods}}" wx:key="{{index}}" data-id="{{item._id}}">
+      <view class="img-box">
+        <image src="{{item.bookimg}}" class="image" mode="aspectFill" lazy-load="true" />
+      </view>
+      <view class="goods-title">书名：{{item.bookname}}</view>
+      <view class="goods-title goods-author">作者：{{item.author}}</view>
+      <view class="goods-title goods-publish">出版信息：{{item.publisher}}</view>
+      <view class="goods-title goods-nums">可借数量：{{item.booknum}}</view>
+      <view class="btn-row" wx:if="{{item.booknum == 1}}">
+        <button size="mini" type="primary" class="confirm-btn" data-id="{{item._id}}" bindtap="toBorrow">借阅</button>
+      </view>
+      <view class="btn-row" wx:else="{{item.booknum == 0}}">
+        <button size="mini" type="default" disabled='disabled'>已借</button>
+      </view>
+    </view>
+  </view>
+  <view hidden="{{loadingMoreHidden ? true : false}}" class="no-more-goods">没有更多啦</view>
+
+</view>
