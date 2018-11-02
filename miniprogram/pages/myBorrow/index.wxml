@@ -1,0 +1,17 @@
+<!--index.wxml-->
+<view class="container">
+
+  <view class="goods-container">
+    <view class="goods-box" wx:for-items="{{goods}}" wx:key="{{index}}">
+      <view class="img-box">
+        <image src="{{item.bookimg}}" class="image" mode="aspectFill" lazy-load="true" />
+      </view>
+      <view class="goods-title">书名：{{item.bookname}}</view>
+      <view class="btn-row">
+        <button size="mini" type="primary" class="confirm-btn" data-bookId="{{item.bookId}}" data-id="{{item._id}}" bindtap="toReturn">归还</button>
+      </view>
+    </view>
+  </view>
+  <view hidden="{{loadingMoreHidden ? true : false}}" class="no-more-goods">没有更多啦</view>
+
+</view>

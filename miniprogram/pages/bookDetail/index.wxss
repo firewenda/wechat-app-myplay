@@ -1,0 +1,50 @@
+/* pages/bookDetail/index.wxss */
+
+.goods-container{
+  width: 100%;
+  box-sizing: content-box;
+}
+.goods-box{
+  padding: 24rpx;
+  background-color: #fff;
+  overflow: hidden;
+  margin: 0 auto 24rpx;
+}
+.goods-box .img-box{
+  width: 250rpx;
+  overflow: hidden;
+  float: left;
+  margin-right: 30rpx;
+}
+.goods-box .img-box image{
+  width: 100%;
+  height: 300rpx;
+}
+.goods-box .goods-title{
+  width: 360rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 26rpx;
+  padding: 12rpx 0 0rpx 0;
+  color:#000;
+  margin-left: 24rpx;
+}
+
+.detail-title{
+  width: 100%;
+  height: 46rpx;
+  line-height: 46rpx;
+  font-size: 28rpx;
+  background-color: #ccc;
+}
+.detail-title .title-text{
+  padding-left: 20rpx;
+  height: 100%;
+  border-left: 5rpx solid rgb(248, 96, 96);
+}
+.detail-cnt{
+  font-size: 26rpx;
+  padding: 24rpx;
+  line-height: 2;
+}

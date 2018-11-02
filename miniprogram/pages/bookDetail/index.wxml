@@ -1,0 +1,28 @@
+<!--pages/bookDetail/index.wxml-->
+<view class="goods-container">
+  <view class="goods-box">
+    <view class="img-box">
+      <image src="{{bookDetail.bookimg}}" class="image" mode="aspectFill" lazy-load="true" />
+    </view>
+    <view class="goods-title">书名：{{bookDetail.bookname}}</view>
+    <view class="goods-title goods-author">作者：{{bookDetail.author}}</view>
+    <view class="goods-title goods-publish">出版信息：{{bookDetail.publisher}}</view>
+    <view class="goods-title goods-nums">可借数量：{{bookDetail.booknum}}</view>
+  </view>
+</view>
+
+<view class='detail-title'>
+  <view class='title-text'>内容推荐</view>
+</view>
+
+<view class='detail-cnt'>
+  <text class='cnt-info'>{{bookDetail.summary}}</text>
+</view>
+
+<view class='detail-title'>
+  <view class='title-text'>目录</view>
+</view>
+
+<view class='detail-cnt'>
+  <text class='cnt-info'>{{bookDetail.catalog}}</text>
+</view>

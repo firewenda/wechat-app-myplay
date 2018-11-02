@@ -3,7 +3,6 @@ const app = getApp()
 
 Page({
   data: {
-    openid: '',
     bookName: '',
     goods: [],
     searchInput: '',
@@ -17,11 +16,6 @@ Page({
       })
       return
     }
-    if (app.globalData.openid) {
-      this.setData({
-        openid: app.globalData.openid
-      })
-    }
 
     this.getGoodsList();
 
@@ -31,9 +25,9 @@ Page({
       bookName = undefined;
     }
     const db = wx.cloud.database()
-    // 查询当前用户所有的 booksList
+    // 查询用户所有的 booksList
     db.collection('booksList').where({
-      _openid: this.data.openid,
+      // _openid: this.data.openid,
       bookname: bookName
     }).get({
       success: res => {
@@ -65,6 +59,11 @@ Page({
       }
     })
   },
+  toDetailsTap: function (e) {
+    wx.navigateTo({
+      url: "/pages/bookDetail/index?id=" + e.currentTarget.dataset.id
+    })
+  },
   listenerSearchInput: function (e) {
     this.setData({
       bookName: e.detail.value
@@ -80,11 +79,46 @@ Page({
         booknum: 0
       },
       success: res => {
+        this.toBorrowList(e.target.dataset.id);
         this.getGoodsList();
       },
       fail: err => {
         icon: 'none',
         console.error('[数据库] [更新记录] 失败：', err)
+      }
+    })
+  },
+  toBorrowList: function(bookId){
+    const db = wx.cloud.database()
+    db.collection('booksList').where({
+      _id: bookId
+    }).get({
+      success: res => {
+        db.collection('borrowList').add({
+          data: {
+            bookId: bookId,
+            bookname: res.data[0].bookname,
+            bookimg: res.data[0].bookimg
+          },
+          success: res => {
+            // 在返回结果中会包含新创建的记录的 _id
+            console.log('[数据库] [新增记录] 成功，记录 _id: ', res._id)
+          },
+          fail: err => {
+            wx.showToast({
+              icon: 'none',
+              title: '新增记录失败'
+            })
+            console.error('[数据库] [新增记录] 失败：', err)
+          }
+        })
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
       }
     })
   },

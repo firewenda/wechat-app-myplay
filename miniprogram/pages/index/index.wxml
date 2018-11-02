@@ -13,7 +13,7 @@
 
   <view class="goods-container">
     <view class="goods-box" wx:for-items="{{goods}}" wx:key="{{index}}" data-id="{{item._id}}">
-      <view class="img-box">
+      <view class="img-box" bindtap="toDetailsTap" data-id="{{item._id}}">
         <image src="{{item.bookimg}}" class="image" mode="aspectFill" lazy-load="true" />
       </view>
       <view class="goods-title">书名：{{item.bookname}}</view>
@@ -24,7 +24,7 @@
         <button size="mini" type="primary" class="confirm-btn" data-id="{{item._id}}" bindtap="toBorrow">借阅</button>
       </view>
       <view class="btn-row" wx:else="{{item.booknum == 0}}">
-        <button size="mini" type="default" disabled='disabled'>已借</button>
+        <button size="mini" type="default" disabled='disabled'>已借出</button>
       </view>
     </view>
   </view>

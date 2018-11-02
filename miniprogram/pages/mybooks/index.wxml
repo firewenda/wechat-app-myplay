@@ -13,4 +13,11 @@
     </view>
   </view>
 
+  <!-- 已借阅图书 -->
+  <view class="uploader" wx:if="{{openid}}">
+    <view class="uploader-text">
+      <navigator url="/pages/myBorrow/index">已借阅图书</navigator>
+    </view>
+  </view>
+
 </view>
