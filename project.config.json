@@ -10,7 +10,7 @@
 	},
 	"appid": "wx2a753566c0127f20",
 	"projectname": "wechat-app-myplay",
-	"libVersion": "2.2.5",
+	"libVersion": "2.3.2",
 	"compileType": "miniprogram",
 	"condition": {
 		"search": {

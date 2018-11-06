@@ -34,5 +34,8 @@
         "text": "我的"
       }
     ]
-  }
+  },
+  "navigateToMiniProgramAppIdList": [
+    "wx2a753566c0127f20"
+  ]
 }
