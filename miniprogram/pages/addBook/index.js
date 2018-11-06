@@ -4,15 +4,21 @@ const app = getApp()
 Page({
   data: {
     openid: '',
-    bookData: ''
+    bookData: '',
+    bookshelvesIdex: [0, 0],
+    bookshelves: [
+      ['A', 'B', 'C', 'D'],
+      ['01', '02', '03', '04', '05', '06', '07', '08', '09']
+    ],
+    bookshelvesVal: 'A01',
+    categoryIdex: 0,
+    categories: ['专业技术', '机器学习', '前端开发', '数据库', '其他'],
+    categoryVal: '专业技术'
   },
 
   onLoad: function(options) {
 
     if (!wx.cloud) {
-      wx.redirectTo({
-        url: '../chooseLib/chooseLib',
-      })
       return
     }
     if (app.globalData.openid) {
@@ -20,6 +26,10 @@ Page({
         openid: app.globalData.openid
       })
     }
+
+    wx.showLoading({
+      title: '数据加载中',
+    })
 
     let isbn = options.isbn;
     let that = this;
@@ -29,6 +39,9 @@ Page({
         'Content-Type': 'json', //一个坑，必须要设为json
       },
       success: function (res) {
+
+        wx.hideLoading()
+
         if (res.data.code == 404) {
           wx.showModal({
             title: '提示',
@@ -45,11 +58,17 @@ Page({
 
   },
   bindSave: function (e) {
+    wx.showLoading({
+      title: '加载中',
+    })
     const db = wx.cloud.database()
     db.collection('booksList').where({
       isbn: e.detail.value.isbn
     }).get({
       success: res => {
+
+        wx.hideLoading()
+
         if(res.data.length){
           wx.showToast({
             icon: 'none',
@@ -60,13 +79,12 @@ Page({
             data: e.detail.value,
             success: res => {
               // 在返回结果中会包含新创建的记录的 _id
-              wx.showToast({
-                title: '新增记录成功',
-              })
               wx.navigateBack({
                 delta: 1
               })
-              console.log('[数据库] [新增记录] 成功，记录 _id: ', res._id)
+              wx.showToast({
+                title: '录入成功',
+              })
             },
             fail: err => {
               wx.showToast({
@@ -77,7 +95,7 @@ Page({
             }
           })
         }
-        console.log('[数据库] [查询记录] 成功: ', res)
+
       },
       fail: err => {
         wx.showToast({
@@ -86,6 +104,18 @@ Page({
         })
         console.error('[数据库] [查询记录] 失败：', err)
       }
+    })
+  },
+  bindMultiPickerChange: function (e) {
+    this.setData({
+      bookshelvesVal: this.data.bookshelves[0][e.detail.value[0]] + this.data.bookshelves[1][e.detail.value[1]],
+      bookshelvesIdex: e.detail.value
+    })
+  },
+  bindCategoryPickerChange: function(e) {
+    this.setData({
+      categoryVal: this.data.categories[e.detail.value],
+      categoryIdex: e.detail.value
     })
   }
 

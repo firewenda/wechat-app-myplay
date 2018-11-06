@@ -13,16 +13,22 @@ Page({
    */
   onLoad: function (options) {
 
+    wx.showLoading({
+      title: '数据加载中',
+    })
+
     const db = wx.cloud.database()
     db.collection('booksList').where({
       _id: options.id
     }).get({
       success: res => {
-        console.log(res.data[0])
+        
+        wx.hideLoading()
+
         this.setData({
           bookDetail: res.data[0]
         });
-        console.log('[数据库] [查询记录] 成功: ', res)
+        // console.log('[数据库] [查询记录] 成功: ', res)
       },
       fail: err => {
         wx.showToast({

@@ -8,6 +8,7 @@
     <view class="goods-title goods-author">作者：{{bookDetail.author}}</view>
     <view class="goods-title goods-publish">出版信息：{{bookDetail.publisher}}</view>
     <view class="goods-title goods-nums">可借数量：{{bookDetail.booknum}}</view>
+    <view class="goods-title goods-nums">书架位置：{{bookDetail.bookshelvesLocation}}</view>
   </view>
 </view>
 

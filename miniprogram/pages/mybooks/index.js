@@ -39,7 +39,7 @@ Page({
       name: 'login',
       data: {},
       success: res => {
-        console.log('[云函数] [login] user openid: ', res.result.openid)
+        // console.log('[云函数] [login] user openid: ', res.result.openid)
         app.globalData.openid = res.result.openid
         this.setData({
           openid: app.globalData.openid
@@ -59,7 +59,6 @@ Page({
     wx.scanCode({
       onlyFromCamera: true,
       success(res) {
-        console.log(res.result)
         wx.navigateTo({
           url: '/pages/addBook/index?isbn=' + res.result
         })

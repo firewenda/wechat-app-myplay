@@ -3,7 +3,6 @@
 .container {
   background-color: #F2f2f2;
   min-height: 100%;
-  padding-top: 120rpx;
 }
 
 .goods-container{
@@ -38,4 +37,14 @@
 }
 .goods-box .btn-row{
   margin-top: 12rpx;
+}
+.goods-box .btn-row button{
+  margin-right: 15rpx;
+}
+
+.no-more-goods{
+  text-align: center;
+  font-size: 24rpx;
+  padding-bottom:48rpx; 
+  color: #999;
 }

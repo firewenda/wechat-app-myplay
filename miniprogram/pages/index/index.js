@@ -11,9 +11,6 @@ Page({
 
   onLoad: function() {
     if (!wx.cloud) {
-      wx.redirectTo({
-        url: '../chooseLib/chooseLib',
-      })
       return
     }
 
@@ -24,6 +21,9 @@ Page({
     if (!bookName) {
       bookName = undefined;
     }
+    wx.showLoading({
+      title: '数据加载中',
+    })
     const db = wx.cloud.database()
     // 查询用户所有的 booksList
     db.collection('booksList').where({
@@ -35,9 +35,10 @@ Page({
           goods: [],
           loadingMoreHidden: true
         });
+        wx.hideLoading()
         var goods = [];
         if (res.data.length == 0) {
-          that.setData({
+          this.setData({
             loadingMoreHidden: false,
           });
           return;
@@ -45,10 +46,12 @@ Page({
         for (var i = 0; i < res.data.length; i++) {
           goods.push(res.data[i]);
         }
+
         this.setData({
           goods: goods
         });
-        console.log('[数据库] [查询记录] 成功: ', res)
+        
+        // console.log('[数据库] [查询记录] 成功: ', res)
       },
       fail: err => {
         wx.showToast({
@@ -79,6 +82,9 @@ Page({
         booknum: 0
       },
       success: res => {
+        wx.showToast({
+          title: '借阅成功',
+        })
         this.toBorrowList(e.target.dataset.id);
         this.getGoodsList();
       },
@@ -98,11 +104,14 @@ Page({
           data: {
             bookId: bookId,
             bookname: res.data[0].bookname,
-            bookimg: res.data[0].bookimg
+            bookimg: res.data[0].bookimg,
+            borrowTime: new Date().getTime(),
+            returnTime: null,
+            isBorrowed: true,
           },
           success: res => {
             // 在返回结果中会包含新创建的记录的 _id
-            console.log('[数据库] [新增记录] 成功，记录 _id: ', res._id)
+            // console.log('[数据库] [新增记录] 成功，记录 _id: ', res._id)
           },
           fail: err => {
             wx.showToast({
@@ -133,6 +142,9 @@ Page({
         // 转发失败
       }
     }
+  },
+  onShow: function() {
+    this.getGoodsList();
   },
 
 })

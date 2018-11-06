@@ -7,8 +7,14 @@
         <image src="{{item.bookimg}}" class="image" mode="aspectFill" lazy-load="true" />
       </view>
       <view class="goods-title">书名：{{item.bookname}}</view>
-      <view class="btn-row">
+      <view class="goods-title">借阅时间：{{item.borrowTime}}</view>
+      <view class="goods-title" wx:if="{{item.isBorrowed === false}}">归还时间：{{item.returnTime}}</view>
+      <view class="btn-row" wx:if="{{item.isBorrowed}}">
         <button size="mini" type="primary" class="confirm-btn" data-bookId="{{item.bookId}}" data-id="{{item._id}}" bindtap="toReturn">归还</button>
+      </view>
+      <view class="btn-row" wx:else="{{item.isBorrowed}}">
+        <button size="mini" type="default" disabled='disabled'>已归还</button>
+        <button size="mini" type="primary" class="confirm-btn" data-id="{{item._id}}" bindtap="toDelItem">删除借阅记录</button>
       </view>
     </view>
   </view>

@@ -20,6 +20,7 @@
       <view class="goods-title goods-author">作者：{{item.author}}</view>
       <view class="goods-title goods-publish">出版信息：{{item.publisher}}</view>
       <view class="goods-title goods-nums">可借数量：{{item.booknum}}</view>
+      <view class="goods-title goods-nums">书架位置：{{item.bookshelvesLocation}}</view>
       <view class="btn-row" wx:if="{{item.booknum == 1}}">
         <button size="mini" type="primary" class="confirm-btn" data-id="{{item._id}}" bindtap="toBorrow">借阅</button>
       </view>
